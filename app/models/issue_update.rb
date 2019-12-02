@@ -2,15 +2,15 @@
 #
 # Table name: issue_updates
 #
-#  id                :integer          not null, primary key
+#  id                :bigint           not null, primary key
 #  issue_id          :integer
 #  user_id           :integer
 #  service_status_id :integer
-#  state             :string(255)
-#  text              :text(65535)
+#  state             :string
+#  text              :text
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  identifier        :string(255)
+#  identifier        :string
 #  notify            :boolean          default(FALSE)
 #
 

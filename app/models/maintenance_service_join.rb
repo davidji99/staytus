@@ -2,7 +2,7 @@
 #
 # Table name: maintenance_service_joins
 #
-#  id             :integer          not null, primary key
+#  id             :bigint           not null, primary key
 #  maintenance_id :integer
 #  service_id     :integer
 #  created_at     :datetime         not null

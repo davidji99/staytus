@@ -2,13 +2,13 @@
 #
 # Table name: maintenance_updates
 #
-#  id             :integer          not null, primary key
+#  id             :bigint           not null, primary key
 #  maintenance_id :integer
 #  user_id        :integer
-#  text           :text(65535)
+#  text           :text
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  identifier     :string(255)
+#  identifier     :string
 #  notify         :boolean          default(FALSE)
 #
 

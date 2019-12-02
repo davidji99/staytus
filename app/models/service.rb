@@ -2,14 +2,14 @@
 #
 # Table name: services
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  permalink   :string(255)
+#  id          :bigint           not null, primary key
+#  name        :string
+#  permalink   :string
 #  position    :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  status_id   :integer
-#  description :text(65535)
+#  description :text
 #  group_id    :integer
 #
 

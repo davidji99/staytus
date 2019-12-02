@@ -2,10 +2,10 @@
 #
 # Table name: users
 #
-#  id              :integer          not null, primary key
-#  email_address   :string(255)
-#  name            :string(255)
-#  password_digest :string(255)
+#  id              :bigint           not null, primary key
+#  email_address   :string
+#  name            :string
+#  password_digest :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
