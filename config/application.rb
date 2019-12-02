@@ -27,7 +27,7 @@ module Staytus
     end
 
     ## make sure of structure.sql vs schema.rb
-    #config.active_record.schema_format = :sql
+    config.active_record.schema_format = :sql
 
     config.eager_load_paths += %W(#{config.root}/lib)
     config.generators do |g|
