@@ -39,6 +39,42 @@ gem 'premailer', '~> 1.11'
 gem 'rack-custom-proxies', '~> 1.0'
 gem 'log_logins', '~> 1.0'
 
+group :development do
+  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+
+  gem "better_errors"
+  gem "binding_of_caller"
+end
+
 group :development, :test do
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '~> 3.29'
+  gem 'selenium-webdriver'
+  # Easy installation and use of chromedriver to run system tests with Chrome
+  gem 'chromedriver-helper'
+  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+    gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
+  end
+  gem 'factory_bot'
+  gem "factory_bot_rails"
+  gem 'shoulda-matchers'
+  gem 'vcr'
+  gem 'timecop'
+  gem 'database_cleaner'
+  gem 'simplecov'
+  gem 'simplecov-rcov'
+  gem 'faker'
+  gem 'webmock'
+  gem 'actionpack'
+  gem 'pry'
+  gem 'pry-coolline'
+  gem 'mailcatcher'
+
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'annotate', '~> 2.7.4'
 end
