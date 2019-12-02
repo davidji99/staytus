@@ -76,6 +76,8 @@ CREATE TABLE public.authie_sessions (
     user_agent character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
+    user_type character varying,
+    parent_id integer,
     two_factored_at timestamp without time zone,
     two_factored_ip character varying,
     requests integer DEFAULT 0,
@@ -1019,10 +1021,31 @@ CREATE INDEX delayed_jobs_priority ON public.delayed_jobs USING btree (priority,
 
 
 --
+-- Name: index_authie_sessions_on_browser_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_authie_sessions_on_browser_id ON public.authie_sessions USING btree (browser_id);
+
+
+--
+-- Name: index_authie_sessions_on_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_authie_sessions_on_token ON public.authie_sessions USING btree (token);
+
+
+--
 -- Name: index_authie_sessions_on_token_hash; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_authie_sessions_on_token_hash ON public.authie_sessions USING btree (token_hash);
+
+
+--
+-- Name: index_authie_sessions_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_authie_sessions_on_user_id ON public.authie_sessions USING btree (user_id);
 
 
 --
