@@ -231,33 +231,33 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activevalidators
+  activevalidators (~> 5.1)
   annotate (~> 2.7.4)
-  authie
-  bcrypt
-  chronic
-  chronic_duration
+  authie (~> 3.3)
+  bcrypt (~> 3.1)
+  chronic (~> 0.10)
+  chronic_duration (~> 0.10)
   coffee-rails (~> 5.0)
-  datey
-  delayed_job_active_record
-  dynamic_form
-  florrick
-  foreman
-  haml
-  jquery-rails
-  kaminari
-  log_logins
-  moonrope
-  nifty-attachments
-  nifty-utils
-  nilify_blanks
+  datey (~> 1.1)
+  delayed_job_active_record (~> 4.1)
+  dynamic_form (~> 1.1)
+  florrick (~> 1.1)
+  foreman (~> 0.86)
+  haml (~> 5.1)
+  jquery-rails (~> 4.3)
+  kaminari (~> 1.1)
+  log_logins (~> 1.0)
+  moonrope (~> 2.0)
+  nifty-attachments (~> 1.0)
+  nifty-utils (~> 1.1)
+  nilify_blanks (~> 1.3)
   pg (~> 1.1)
-  premailer
+  premailer (~> 1.11)
   puma (~> 4.3)
-  rack-custom-proxies
+  rack-custom-proxies (~> 1.0)
   rails (~> 5.2.4)
-  rails_env_config
-  redcarpet
+  rails_env_config (~> 1.1)
+  redcarpet (~> 3.5)
   sass-rails (~> 5.1)
   uglifier (~> 4.2)
 
