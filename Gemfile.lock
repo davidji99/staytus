@@ -237,7 +237,7 @@ DEPENDENCIES
   bcrypt
   chronic
   chronic_duration
-  coffee-rails
+  coffee-rails (~> 5.0)
   datey
   delayed_job_active_record
   dynamic_form
@@ -251,15 +251,18 @@ DEPENDENCIES
   nifty-attachments
   nifty-utils
   nilify_blanks
-  pg
+  pg (~> 1.1)
   premailer
-  puma
+  puma (~> 4.3)
   rack-custom-proxies
   rails (~> 5.2.4)
   rails_env_config
   redcarpet
   sass-rails (~> 5.1)
-  uglifier
+  uglifier (~> 4.2)
+
+RUBY VERSION
+   ruby 2.6.5p114
 
 BUNDLED WITH
    1.17.2
