@@ -151,6 +151,7 @@ GEM
     nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
     numerizer (0.1.1)
+    pg (1.1.4)
     phony (2.18.10)
     premailer (1.11.1)
       addressable
@@ -252,6 +253,7 @@ DEPENDENCIES
   nifty-attachments
   nifty-utils
   nilify_blanks
+  pg
   premailer
   puma
   rack-custom-proxies

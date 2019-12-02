@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 gem 'rails', '~> 5.2.4'
 gem 'mysql2'
+gem 'pg'
 gem 'sass-rails', '~> 5.1'
 gem 'uglifier'
 gem 'coffee-rails'
