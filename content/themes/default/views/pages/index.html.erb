@@ -19,6 +19,10 @@
 
 <div class='container'>
 
+  <% if @issues.empty? %>
+    <p class="issueBanner issueBanner--alloperational">&#10003; ALL SYSTEMS OPERATIONAL</p>
+  <% end %>
+
   <% unless @issues.empty? %>
   <section class='ongoingIssues'>
     <% @issues.each do |issue| %>
