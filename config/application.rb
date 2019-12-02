@@ -26,8 +26,8 @@ module Staytus
       g.orm :active_record, primary_key_type: :uuid
     end
 
-    # make sure of structure.sql vs schema.rb
-    config.active_record.schema_format = :sql
+    ## make sure of structure.sql vs schema.rb
+    #config.active_record.schema_format = :sql
 
     config.eager_load_paths += %W(#{config.root}/lib)
     config.generators do |g|
