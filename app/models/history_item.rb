@@ -2,8 +2,8 @@
 #
 # Table name: history_items
 #
-#  id        :integer          not null, primary key
-#  item_type :string(255)
+#  id        :bigint           not null, primary key
+#  item_type :string
 #  item_id   :integer
 #  date      :datetime
 #

@@ -1,4 +1,4 @@
-class AddServiceGroups < ActiveRecord::Migration[4.2]
+class AddServiceGroups < ActiveRecord::Migration[5.2]
   def change
     create_table :service_groups do |t|
       t.string :name

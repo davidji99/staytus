@@ -2,28 +2,28 @@
 #
 # Table name: maintenance_updates
 #
-#  id             :integer          not null, primary key
+#  id             :bigint           not null, primary key
 #  maintenance_id :integer
 #  user_id        :integer
-#  text           :text(65535)
+#  text           :text
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  identifier     :string(255)
+#  identifier     :string
 #  notify         :boolean          default(FALSE)
 #
 
 class MaintenanceUpdate < ActiveRecord::Base
 
-  belongs_to :maintenance, :touch => true
+  belongs_to :maintenance, touch: true
   belongs_to :user
 
-  validates :text, :presence => true
+  validates :text, presence: true
 
-  random_string :identifier, :type => :hex, :length => 6, :unique => true
+  random_string :identifier, type: :hex, length: 6, unique: true
 
-  scope :ordered, -> { order(:id => :desc) }
+  scope :ordered, -> { order(id: :desc) }
 
-  after_commit :send_notifications_on_create, :on => :create
+  after_commit :send_notifications_on_create, on: :create
 
   florrick do
     string :text
@@ -34,13 +34,18 @@ class MaintenanceUpdate < ActiveRecord::Base
 
   def send_notifications
     for subscriber in Subscriber.verified
-      Staytus::Email.deliver(subscriber, :new_maintenance_update, :maintenance => self.maintenance, :update => self)
+      Staytus::Email.deliver(subscriber, :new_maintenance_update, maintenance: self.maintenance, update: self)
     end
+  end
+
+  def call_webhook
+    Staytus::Webhookcaller.call(:maintenance_update, object: self.maintenance, update: self)
   end
 
   def send_notifications_on_create
     if self.notify?
       self.delay.send_notifications
+      self.delay.call_webhook
     end
   end
 

@@ -2,15 +2,15 @@
 #
 # Table name: issues
 #
-#  id                :integer          not null, primary key
-#  title             :string(255)
-#  state             :string(255)
+#  id                :bigint           not null, primary key
+#  title             :string
+#  state             :string
 #  service_status_id :integer
 #  all_services      :boolean          default(TRUE)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  user_id           :integer
-#  identifier        :string(255)
+#  identifier        :string
 #  notify            :boolean          default(FALSE)
 #
 
@@ -38,11 +38,11 @@ class Issue < ActiveRecord::Base
   has_many :updates, :dependent => :destroy, :class_name => 'IssueUpdate'
   has_one :latest_update, -> { order(:id => :desc) }, :class_name => 'IssueUpdate'
 
-  after_create :add_initial_update
-  after_save :update_service_statuses
-  after_create :create_history_item
-  after_destroy :destroy_history_item
-  after_commit :send_notifications_on_create, :on => :create
+  before_save :update_service_statuses
+  after_commit :add_initial_update, on: :create
+  after_commit :create_history_item, on: :create
+  after_commit :destroy_history_item, on: :destroy
+  after_commit :send_notifications_on_create, on: :create
 
   florrick do
     string :title
@@ -62,12 +62,12 @@ class Issue < ActiveRecord::Base
       initial_text = self.initial_update
     end
     self.updates.create!(
-      :state => self.state,
-      :service_status => self.service_status,
-      :user => self.user,
-      :created_at => self.created_at,
-      :text => initial_text,
-      :notify => false
+        :state => self.state,
+        :service_status => self.service_status,
+        :user => self.user,
+        :created_at => self.created_at,
+        :text => initial_text,
+        :notify => false
     )
   end
 
@@ -86,9 +86,14 @@ class Issue < ActiveRecord::Base
     end
   end
 
+  def call_webhook
+    Staytus::Webhookcaller.call(:new_issue, :object => self, :update => self.updates.last)
+  end
+
   def send_notifications_on_create
     if self.notify?
       self.delay.send_notifications
+      self.delay.call_webhook
     end
   end
 

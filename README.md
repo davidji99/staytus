@@ -20,22 +20,13 @@ any organization with customers that rely on them to be online 24/7.
 
 * Ruby 2.3 or greater
 * RubyGems and Bundler
-* A MySQL database server
+* A Postgres database server
 * Bundler (`gem install bundler`)
 * Procodile (`gem install procodile`)
 
 ### Installation Instructions
 
 **A comprehensive tutorial about how to install Staytus [available here](https://atech.blog/atech/install-staytus-tutorial) on the [aTech Media blog](https://atech.blog).**
-
-Alternativly, these basic instructions will get you up and running:
-
-Before start, you'll need to create a new MySQL database:
-
-```text
-mysql$ CREATE DATABASE `staytus` CHARSET utf8 COLLATE utf8_unicode_ci;
-mysql$ GRANT ALL ON staytus.* TO `staytus`@`localhost` IDENTIFIED BY "a_secure_password";
-```
 
 ```text
 $ git clone https://github.com/adamcooke/staytus

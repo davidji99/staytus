@@ -2,33 +2,33 @@
 #
 # Table name: issue_updates
 #
-#  id                :integer          not null, primary key
+#  id                :bigint           not null, primary key
 #  issue_id          :integer
 #  user_id           :integer
 #  service_status_id :integer
-#  state             :string(255)
-#  text              :text(65535)
+#  state             :string
+#  text              :text
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  identifier        :string(255)
+#  identifier        :string
 #  notify            :boolean          default(FALSE)
 #
 
 class IssueUpdate < ActiveRecord::Base
 
-  validates :state, :inclusion => {:in => Issue::STATES}
-  validates :text, :presence => true
+  validates :state, inclusion: {in: Issue::STATES}
+  validates :text, presence: true
 
-  belongs_to :issue, :touch => true
+  belongs_to :issue, touch: true
   belongs_to :user
   belongs_to :service_status
 
-  random_string :identifier, :type => :hex, :length => 6, :unique => true
+  random_string :identifier, type: :hex, length: 6, unique: true
 
-  scope :ordered, -> { order(:id => :desc) }
+  scope :ordered, -> { order(id: :desc) }
 
-  after_save :update_base_issue
-  after_commit :send_notifications_on_create, :on => :create
+  after_commit :update_base_issue, on: [:create, :update]
+  after_commit :send_notifications_on_create, on: :create
 
   florrick do
     string :state
@@ -53,13 +53,18 @@ class IssueUpdate < ActiveRecord::Base
 
   def send_notifications
     for subscriber in Subscriber.verified
-      Staytus::Email.deliver(subscriber, :new_issue_update, :issue => self.issue, :update => self)
+      Staytus::Email.deliver(subscriber, :new_issue_update, issue: self.issue, update: self)
     end
+  end
+
+  def call_webhook
+    Staytus::Webhookcaller.call(:issue_update, object: self.issue, update: self)
   end
 
   def send_notifications_on_create
     if self.notify?
       delay.send_notifications
+      delay.call_webhook
     end
   end
 

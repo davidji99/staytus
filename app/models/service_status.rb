@@ -2,11 +2,11 @@
 #
 # Table name: service_statuses
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  permalink   :string(255)
-#  color       :string(255)
-#  status_type :string(255)
+#  id          :bigint           not null, primary key
+#  name        :string
+#  permalink   :string
+#  color       :string
+#  status_type :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

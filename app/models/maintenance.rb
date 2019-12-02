@@ -2,9 +2,9 @@
 #
 # Table name: maintenances
 #
-#  id                :integer          not null, primary key
-#  title             :string(255)
-#  description       :text(65535)
+#  id                :bigint           not null, primary key
+#  title             :string
+#  description       :text
 #  start_at          :datetime
 #  finish_at         :datetime
 #  length_in_minutes :integer
@@ -13,7 +13,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  closed_at         :datetime
-#  identifier        :string(255)
+#  identifier        :string
 #  notify            :boolean          default(FALSE)
 #
 
@@ -42,9 +42,9 @@ class Maintenance < ActiveRecord::Base
   scope :upcoming, -> { where("start_at > ?", Time.now).open }
 
   before_validation :convert_times
-  after_save :create_or_update_history_item
-  after_destroy :destroy_history_item
-  after_commit :send_notifications_on_create, :on => :create
+  after_commit :create_or_update_history_item, on: [:create, :update]
+  after_commit :destroy_history_item, on: :destroy
+  after_commit :send_notifications_on_create, on: :create
 
   florrick do
     string :title
@@ -117,9 +117,14 @@ class Maintenance < ActiveRecord::Base
     end
   end
 
+  def call_webhook
+    Staytus::Webhookcaller.call(:new_maintenance, :object => self, :update => self.updates.last)
+  end
+
   def send_notifications_on_create
     if self.notify?
       self.delay.send_notifications
+      self.delay.call_webhook
     end
   end
 
@@ -134,11 +139,9 @@ class Maintenance < ActiveRecord::Base
   end
 
   def create_or_update_history_item
-    if self.start_at_changed?
-      item = HistoryItem.where(:item => self).first_or_initialize
-      item.date = self.start_at
-      item.save
-    end
+    item = HistoryItem.where(:item => self).first_or_initialize
+    item.date = self.start_at
+    item.save
   end
 
   def destroy_history_item

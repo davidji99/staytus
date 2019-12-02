@@ -1,5 +1,5 @@
 # This migration comes from log_logins (originally 20180307100300)
-class CreateLogLoginsEventsTable < ActiveRecord::Migration[4.2]
+class CreateLogLoginsEventsTable < ActiveRecord::Migration[5.2]
 
   def change
     create_table :login_events do |t|
