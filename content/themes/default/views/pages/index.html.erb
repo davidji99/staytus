@@ -19,6 +19,10 @@
 
 <div class='container'>
 
+  <% if @issues.empty? %>
+    <p class="issueBanner issueBanner--alloperational">&#10003; ALL SYSTEMS OPERATIONAL</p>
+  <% end %>
+
   <% unless @issues.empty? %>
   <section class='ongoingIssues'>
     <% @issues.each do |issue| %>
@@ -48,6 +52,9 @@
   </section>
   <% end %>
 
+  <br>
+  <span class="homePageTitle">Current Status</span>
+
   <% for group, services in @services_with_group %>
   <section class='serviceGroup'>
     <% if group %>
@@ -68,6 +75,10 @@
     </ul>
   </section>
   <% end %>
+
+  <br>
+  <span class="homePageTitle">Past Incidents</span>
+
 
   <% if Staytus::Config.demo? %>
   <div class='staytusDemo'>
